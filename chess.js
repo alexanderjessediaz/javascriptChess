@@ -1,10 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-
 const BOARD_WIDTH = 8;
 const BOARD_HEIGHT = 8;
 
-const TILE_SIZE = 50;
+const TILE_SIZE = 75;
 const WHITE_TILE_COLOR = "white";
 const BLACK_TILE_COLOR = "black";
 const HIGHLIGHT_COLOR = "red"
@@ -51,10 +48,14 @@ let blackCasualities;
 let whiteVictories;
 let blackVictories;
 
+
+
+
+
 onLoad = () => {
     chessCanvas = document.getElementById('chesscanvas');
     chessCtx = chessCanvas.getContext('2d');
-    chessCanvas.addEventListener('click', onclick);
+    chessCanvas.addEventListener('click', onClick);
     currentTeamText = document.getElementById('currentTeamText');
     
     whiteCasualitiesText = document.getElementById('whiteCasualities');
@@ -90,7 +91,7 @@ onClick = event => {
     let chessCanvasY = chessCanvas.getBoundingClientRect().top;
     
     let x = Math.floor((event.clientX-chessCanvasX)/TILE_SIZE);
-    let y = Math.floor((event.clientX-chessCanvasY)/TILE_SIZE);
+    let y = Math.floor((event.clientY-chessCanvasY)/TILE_SIZE);
     
     if (checkValidMovement(x,y) === true) {
         if (checkValidCapture(x,y) === true) {
@@ -303,7 +304,7 @@ drawCircle = (x,y, fillStyle) => {
 drawCorners = (x,y, fillStyle) => {
     chessCtx.fillStyle = fillStyle;
     
-    chess.Ctx.beginPath();
+    chessCtx.beginPath();
     chessCtx.moveTo(TILE_SIZE*x, TILE_SIZE*y);
     chessCtx.lineTo(TILE_SIZE*x+15, TILE_SIZE*y);
     chessCtx.lineTo(TILE_SIZE*x,TILE_SIZE*y+15);
@@ -460,4 +461,6 @@ class Tile{
     }
 }
 
-});
+
+
+document.addEventListener('DOMContentLoaded', onLoad)
